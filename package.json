@@ -1,0 +1,25 @@
+{
+  "name": "js-library",
+  "version": "1.0.0",
+  "description": "A JavaScript App to keep track of books in a Library. It keeps track of information relevant to each book, like _title_, _author_, _number of pages_ and whether you have _read_ the book or not. Books can be added or removed from the library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keshav-c/js-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keshav-c/js-library/issues"
+  },
+  "homepage": "https://github.com/keshav-c/js-library#readme",
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}
