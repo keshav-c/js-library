@@ -1,0 +1,67 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --ff: Tahoma, Verdana, sans-serif;
+  --fw: normal;
+  --col-txt: #444;
+  --col-gr: #eee;
+  --col-bord: #ddd;
+  --col-accent: #9631bf;
+  --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25),
+        0.125em 0.125em 0.25em rgba(0,0,0,.15);
+}
+
+body {
+  color: var(--txt-col);
+  font-family: var(--ff);
+  letter-spacing: 1px;
+}
+
+h1, h2 {
+  font-weight: var(--fw);
+}
+
+#app-wrapper {
+  border-radius: 6px;
+  box-shadow: var(--bs);
+  margin: 2rem auto;
+  max-width: 1000px;
+  overflow: hidden;
+  padding: 0 0 1.5em;
+  width: 90%;
+}
+
+#banner {
+  background-color: var(--col-gr);
+  padding: 0.75em 0;
+}
+
+#banner h1,
+#banner p {
+  margin: 0.75em 0;
+  text-align: center;
+  width: 100%;
+}
+
+#list {
+  margin: 1.75em;
+}
+
+#list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#list li {
+  padding: 1.75em;
+  border-left: 5px solid var(--col-bord);
+  margin: 1.75em 0.8em;
+}
+
+#list li:hover {
+  border-color: var(--col-accent);
+}
