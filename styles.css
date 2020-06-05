@@ -5,6 +5,7 @@
 }
 
 :root {
+  --app-width: 1000px;
   --ff: Tahoma, Verdana, sans-serif;
   --fw: normal;
   --col-txt: #444;
@@ -15,6 +16,7 @@
   --col-orng-dark: rgb(226, 97, 11);
   --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25),
         0.125em 0.125em 0.25em rgba(0,0,0,.15);
+  --pad-modal: 0.125rem 1rem;
 }
 
 body {
@@ -31,7 +33,7 @@ h1, h2 {
   border-radius: 6px;
   box-shadow: var(--bs);
   margin: 2rem auto;
-  max-width: 1000px;
+  max-width: var(--app-width);
   overflow: hidden;
   padding: 0 0 1.5em;
   width: 90%;
@@ -83,6 +85,52 @@ h1, h2 {
 #add-button:active {
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
               inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+.modal {
+  background-color: rgb(0,0,0); /* bg fallback color */
+  background-color: rgb(0,0,0,0.4); /* bg fallback color w/ opacity */
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto; /* Enable scroll in modal box if needed */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal-header {
+  padding: var(--pad-modal);
+  background-color: var(--col-orng);
+  color: var(--col-gr);
+}
+
+.modal-body {
+  padding: var(--pad-modal);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  margin: 15% auto;
+  max-width: var(--app-width);
+  padding: 1.25rem;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 #list ul {
