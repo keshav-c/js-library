@@ -64,9 +64,9 @@ h1, h2 {
 #add-button {
   background-color: var(--col-orng);
   background-image: linear-gradient(to top left,
-                                      rgba(0, 0, 0, .2),
-                                      rgba(0, 0, 0, .2) 30%,
-                                      rgba(0, 0, 0, 0));
+                                  rgba(0, 0, 0, .2),
+                                  rgba(0, 0, 0, .2) 30%,
+                                  rgba(0, 0, 0, 0));
   border: 0;
   border-radius: 0.5rem;
   box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
@@ -88,12 +88,12 @@ h1, h2 {
 }
 
 .modal {
-  background-color: rgb(0,0,0); /* bg fallback color */
-  background-color: rgb(0,0,0,0.4); /* bg fallback color w/ opacity */
+  background-color: rgb(0,0,0);
+  background-color: rgb(0,0,0,0.4);
   display: none;
   height: 100%;
   left: 0;
-  overflow: auto; /* Enable scroll in modal box if needed */
+  overflow: auto;
   position: fixed;
   top: 0;
   width: 100%;
@@ -101,9 +101,9 @@ h1, h2 {
 }
 
 .modal-header {
-  padding: var(--pad-modal);
   background-color: var(--col-orng);
   color: var(--col-gr);
+  padding: var(--pad-modal);
 }
 
 .modal-body {
@@ -111,12 +111,28 @@ h1, h2 {
 }
 
 .modal-content {
+  animation-name: slideform;
+  animation-duration: 0.5s;
   background-color: #fefefe;
   border: 1px solid #888;
+  box-shadow: 0 .25rem .5rem 0 rgba(0,0,0,0.2),
+              0 .375rem 1.25rem 0 rgba(0,0,0,0.4);
   margin: 15% auto;
   max-width: var(--app-width);
   padding: 1.25rem;
+  position: relative;
   width: 80%;
+}
+
+@keyframes slideform {
+  from { 
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .close {
