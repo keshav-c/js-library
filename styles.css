@@ -11,6 +11,8 @@
   --col-gr: #eee;
   --col-bord: #ddd;
   --col-accent: #9631bf;
+  --col-orng: rgba(226, 97, 11, 0.883);
+  --col-orng-dark: rgb(226, 97, 11);
   --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25),
         0.125em 0.125em 0.25em rgba(0,0,0,.15);
 }
@@ -40,6 +42,12 @@ h1, h2 {
   padding: 0.75em 0;
 }
 
+#list-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
 #banner h1,
 #banner p {
   margin: 0.75em 0;
@@ -49,6 +57,32 @@ h1, h2 {
 
 #list {
   margin: 1.75em;
+}
+
+#add-button {
+  background-color: var(--col-orng);
+  background-image: linear-gradient(to top left,
+                                      rgba(0, 0, 0, .2),
+                                      rgba(0, 0, 0, .2) 30%,
+                                      rgba(0, 0, 0, 0));
+  border: 0;
+  border-radius: 0.5rem;
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+              inset -2px -2px 3px rgba(0, 0, 0, .6);
+  color: var(--col-gr);
+  font-size: 1rem;
+  line-height: 2.5;
+  padding: 0 1.5rem;
+  text-shadow: 1px 1px 1px #111;
+}
+
+#add-button:hover {
+  background-color: var(--col-orng-dark);
+}
+
+#add-button:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
 
 #list ul {
