@@ -15,18 +15,35 @@
         <div id="list">
           <div id="list-bar">
             <h2 class="title">Books being tracked</h2>
-            <!-- Open Modal Button -->
-            <button id="add-button">Add Book</button>
-            <!-- The Add Book Modal -->
+            <button id="add-button">New Book</button>
             <div id="form-box" class="modal">
-              <!-- Modal Box Content -->
               <div class="modal-content">
                 <div class="modal-header">
                   <span class="close">&times;</span>
                   <h2>Enter Book Details</h2>
                 </div>
                 <div class="modal-body">
-                  <p>Some Text in the modal...</p>
+                  <form id="add-form">
+                    <div>
+                    <label for="book-title">Title</label>
+                    <input type="text" id="book-title" name="title">
+                    </div>
+                    <div>
+                    <label for="book-author">Author</label>
+                    <input type="text" id="book-author" name="author">
+                    </div>
+                    <div>
+                    <label for="book-pages">Pages</label>
+                    <input type="number" id="book-pages" name="pages">
+                    </div>
+                    <div>
+                    <input type="radio" id="book-unread" name="read" value="0" checked>
+                    <label for="book-unread">Unread</label>
+                    <input type="radio" id="book-read" name="read" value="1">
+                    <label for="book-read">Read</label>
+                    </div>
+                    <input type="submit" value="Add Book">
+                  </form>
                 </div>
               </div>
             </div>
