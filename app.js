@@ -21,17 +21,33 @@ function render() {
     const title = document.createElement('span');
     title.textContent = book.title;
     title.classList.add('book-title');
-    li.appendChild(title);
     const author = document.createElement('span');
     author.textContent = `by ${book.author}`;
     author.classList.add('book-author');
-    li.appendChild(author);
     const pages = document.createElement('span');
     pages.textContent = `${book.pages} Pages`;
-    li.appendChild(pages);
-    const read = document.createElement('span');
-    read.textContent = book.read ? 'Read' : 'Unread';
-    li.appendChild(read);
+    pages.classList.add('book-pages');
+    const details = document.createElement('div');
+    details.classList.add('book-details');
+    details.appendChild(title);
+    details.appendChild(author);
+    details.appendChild(pages);
+    li.appendChild(details);
+    const read = document.createElement('i');
+    if (book.read) {
+      read.classList.add('fi-cnsuxl-check');
+    } else {
+      read.classList.add('fi-cnluxl-check');
+    }
+    read.classList.add('book-read');
+    const del = document.createElement('i');
+    del.classList.add('fi-xnluxl-trash-bin');
+    del.classList.add('book-delete');
+    const edit = document.createElement('div');
+    edit.classList.add('book-edit');
+    edit.appendChild(read);
+    edit.appendChild(del);
+    li.appendChild(edit);
     const idx = document.createElement('span');
     idx.textContent = index;
     idx.style.display = 'none';
@@ -41,6 +57,7 @@ function render() {
   });
 }
 
+// eslint-disable-next-line no-unused-vars
 addForm.addEventListener('submit', (event) => {
   const title = addForm.querySelector('#title-input').value;
   const author = addForm.querySelector('#author-input').value;
@@ -50,6 +67,23 @@ addForm.addEventListener('submit', (event) => {
   myLibrary.push(book);
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   render();
+});
+
+bookList.addEventListener('click', event => {
+  const icon = event.target.closest('i');
+  if (icon !== null) {
+    const li = icon.closest('li');
+    const i = Number(li.querySelector('.book-index').textContent);
+    if (icon.classList.contains('book-delete')) {
+      console.log(`delete book ${i}`);
+    } else if (icon.classList.contains('book-read')) {
+      if (myLibrary[i].read) {
+        console.log(`mark book ${i} as read`);
+      } else {
+        console.log(`mark book ${i} as unread`);
+      }
+    }
+  }
 });
 
 render();
