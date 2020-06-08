@@ -1,17 +1,12 @@
-/* This section adds the popup form */
-
-// get modal
 const addFormBox = document.getElementById('form-box');
-// get modal button
 const addBookBtn = document.getElementById('add-button');
-// get modal close button
 const closeBtn = document.getElementsByClassName('close')[0];
-// make open modal button work
-addBookBtn.onclick = () => { addFormBox.style.display = 'block'; };
-// make modal close button work
-closeBtn.onclick = () => { addFormBox.style.display = 'none'; };
+const addForm = document.forms['add-form'];
+const bookList = document.querySelector('#list ul');
+const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
 
-const myLibrary = [];
+addBookBtn.onclick = () => { addFormBox.style.display = 'block'; };
+closeBtn.onclick = () => { addFormBox.style.display = 'none'; };
 
 function Book(author, title, pages, read = false) {
   this.author = author;
@@ -20,23 +15,41 @@ function Book(author, title, pages, read = false) {
   this.read = read;
 }
 
-const addForm = document.forms['add-form'];
+function render() {
+  myLibrary.forEach((book, index) => {
+    const li = document.createElement('li');
+    const title = document.createElement('span');
+    title.textContent = book.title;
+    title.classList.add('book-title');
+    li.appendChild(title);
+    const author = document.createElement('span');
+    author.textContent = `by ${book.author}`;
+    author.classList.add('book-author');
+    li.appendChild(author);
+    const pages = document.createElement('span');
+    pages.textContent = `${book.pages} Pages`;
+    li.appendChild(pages);
+    const read = document.createElement('span');
+    read.textContent = book.read ? 'Read' : 'Unread';
+    li.appendChild(read);
+    const idx = document.createElement('span');
+    idx.textContent = index;
+    idx.style.display = 'none';
+    idx.classList.add('book-index');
+    li.appendChild(idx);
+    bookList.appendChild(li);
+  });
+}
+
 addForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const title = addForm.querySelector('#book-title').value;
-  const author = addForm.querySelector('#book-author').value;
-  const pages = addForm.querySelector('#book-pages').value;
+  const title = addForm.querySelector('#title-input').value;
+  const author = addForm.querySelector('#author-input').value;
+  const pages = addForm.querySelector('#pages-input').value;
   const read = Boolean(Number(addForm.querySelector("input[name='read']:checked").value));
   const book = new Book(author, title, pages, read);
   myLibrary.push(book);
-  addForm.querySelector('#book-title').value = '';
-  addForm.querySelector('#book-author').value = '';
-  addForm.querySelector('#book-pages').value = '';
-  addForm.querySelector('#book-read').checked = false;
-  addForm.querySelector('#book-unread').checked = true;
-  closeBtn.click();
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  render();
 });
 
-function render() {
-
-}
+render();
