@@ -15,6 +15,13 @@ function Book(author, title, pages, read = false) {
   this.read = read;
 }
 
+// eslint-disable-next-line prefer-const
+let icon = {
+  read: 'fi-cnsuxl-check',
+  unread: 'fi-cnluxl-check',
+  delete: 'fi-xnluxl-trash-bin',
+};
+
 function render() {
   myLibrary.forEach((book, index) => {
     const li = document.createElement('li');
@@ -35,13 +42,13 @@ function render() {
     li.appendChild(details);
     const read = document.createElement('i');
     if (book.read) {
-      read.classList.add('fi-cnsuxl-check');
+      read.classList.add(icon.read);
     } else {
-      read.classList.add('fi-cnluxl-check');
+      read.classList.add(icon.unread);
     }
     read.classList.add('book-read');
     const del = document.createElement('i');
-    del.classList.add('fi-xnluxl-trash-bin');
+    del.classList.add(icon.delete);
     del.classList.add('book-delete');
     const edit = document.createElement('div');
     edit.classList.add('book-edit');
@@ -69,18 +76,25 @@ addForm.addEventListener('submit', (event) => {
   render();
 });
 
+const deleteBook = (index) => {
+  myLibrary.splice(index, 1);
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  bookList.innerHTML = '';
+  render();
+};
+
 bookList.addEventListener('click', event => {
   const icon = event.target.closest('i');
   if (icon !== null) {
     const li = icon.closest('li');
     const i = Number(li.querySelector('.book-index').textContent);
     if (icon.classList.contains('book-delete')) {
-      console.log(`delete book ${i}`);
+      deleteBook(i);
     } else if (icon.classList.contains('book-read')) {
       if (myLibrary[i].read) {
-        console.log(`mark book ${i} as read`);
-      } else {
         console.log(`mark book ${i} as unread`);
+      } else {
+        console.log(`mark book ${i} as read`);
       }
     }
   }
