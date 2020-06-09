@@ -10,17 +10,22 @@ The project is intended to be a demonstration of the use of **JavaScript Arrays*
 - JavaScript
 - HTML
 - CSS
-- nodejs
+- nodejs (required for eslint)
 
 # Live Demo
 
-[link here]
+[Github Pages Link](https://keshav-c.github.io/js-library/)
 
 # Getting Started
 
-[Setup instructions]
+
 
 ## Prerequisites
+
+This project was tested with
+
+- Nodejs version 13.14.0
+- npm version 6.14.5
 
 ## Setup
 
