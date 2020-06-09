@@ -3,12 +3,12 @@ const addBookBtn = document.getElementById('add-button');
 const closeBtn = document.getElementsByClassName('close')[0];
 const addForm = document.forms['add-form'];
 const bookList = document.querySelector('#list ul');
-const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
 
 addBookBtn.onclick = () => { addFormBox.style.display = 'block'; };
 closeBtn.onclick = () => { addFormBox.style.display = 'none'; };
 
-function Book(author, title, pages, read = false) {
+function Book(id, author, title, pages, read = false) {
+  this.id = id;
   this.author = author;
   this.title = title;
   this.pages = pages;
@@ -16,88 +16,100 @@ function Book(author, title, pages, read = false) {
 }
 
 // eslint-disable-next-line prefer-const
-let icon = {
-  read: 'fi-cnsuxl-check',
-  unread: 'fi-cnluxl-check',
-  delete: 'fi-xnluxl-trash-bin',
+let iconHTML = {
+  read: '<i class="fi-cnsuxl-check"></i>',
+  unread: '<i class="fi-cnluxl-check"></i>',
+  delete: '<i class="fi-xnluxl-trash-bin"></i>',
 };
 
-function render() {
-  myLibrary.forEach((book, index) => {
-    const li = document.createElement('li');
-    const title = document.createElement('span');
-    title.textContent = book.title;
-    title.classList.add('book-title');
-    const author = document.createElement('span');
-    author.textContent = `by ${book.author}`;
-    author.classList.add('book-author');
-    const pages = document.createElement('span');
-    pages.textContent = `${book.pages} Pages`;
-    pages.classList.add('book-pages');
-    const details = document.createElement('div');
-    details.classList.add('book-details');
-    details.appendChild(title);
-    details.appendChild(author);
-    details.appendChild(pages);
-    li.appendChild(details);
-    const read = document.createElement('i');
-    if (book.read) {
-      read.classList.add(icon.read);
-    } else {
-      read.classList.add(icon.unread);
-    }
-    read.classList.add('book-read');
-    const del = document.createElement('i');
-    del.classList.add(icon.delete);
-    del.classList.add('book-delete');
-    const edit = document.createElement('div');
-    edit.classList.add('book-edit');
-    edit.appendChild(read);
-    edit.appendChild(del);
-    li.appendChild(edit);
-    const idx = document.createElement('span');
-    idx.textContent = index;
-    idx.style.display = 'none';
-    idx.classList.add('book-index');
-    li.appendChild(idx);
-    bookList.appendChild(li);
-  });
+const renderBook = (book) => {
+  const li = document.createElement('li');
+  const title = document.createElement('span');
+  title.textContent = book.title;
+  title.classList.add('book-title');
+  const author = document.createElement('span');
+  author.textContent = `by ${book.author}`;
+  author.classList.add('book-author');
+  const pages = document.createElement('span');
+  pages.textContent = `${book.pages} Pages`;
+  pages.classList.add('book-pages');
+  const details = document.createElement('div');
+  details.classList.add('book-details');
+  details.appendChild(title);
+  details.appendChild(author);
+  details.appendChild(pages);
+  li.appendChild(details);
+  const bookRead = document.createElement('span');
+  bookRead.innerHTML = iconHTML.read;
+  bookRead.classList.add('book-read', 'icon');
+  const bookUnread = document.createElement('span');
+  bookUnread.innerHTML = iconHTML.unread;
+  bookUnread.classList.add('book-unread', 'icon');
+  if (book.read) {
+    bookUnread.style.display = 'none';
+  } else {
+    bookRead.style.display = 'none';
+  }
+  const del = document.createElement('span');
+  del.innerHTML = iconHTML.delete;
+  del.classList.add('book-delete', 'icon');
+  const edit = document.createElement('div');
+  edit.classList.add('book-edit');
+  edit.appendChild(bookRead);
+  edit.appendChild(bookUnread);
+  edit.appendChild(del);
+  li.appendChild(edit);
+  const id = document.createElement('span');
+  id.textContent = Number(book.id).toString();
+  id.style.display = 'none';
+  id.classList.add('book-id');
+  li.appendChild(id);
+  bookList.appendChild(li);
+};
+
+function renderList() {
+  const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
+  myLibrary.forEach((book) => { renderBook(book); });
 }
 
 // eslint-disable-next-line no-unused-vars
 addForm.addEventListener('submit', (event) => {
+  const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
+  const len = myLibrary.length;
+  const id = (len === 0) ? 0 : myLibrary[len - 1].id + 1;
   const title = addForm.querySelector('#title-input').value;
   const author = addForm.querySelector('#author-input').value;
   const pages = addForm.querySelector('#pages-input').value;
   const read = Boolean(Number(addForm.querySelector("input[name='read']:checked").value));
-  const book = new Book(author, title, pages, read);
+  const book = new Book(id, author, title, pages, read);
   myLibrary.push(book);
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  render();
+  renderBook(book);
 });
 
-const deleteBook = (index) => {
-  myLibrary.splice(index, 1);
-  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  bookList.innerHTML = '';
-  render();
-};
-
 bookList.addEventListener('click', event => {
-  const icon = event.target.closest('i');
+  const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
+  const icon = event.target.closest('.icon');
   if (icon !== null) {
     const li = icon.closest('li');
-    const i = Number(li.querySelector('.book-index').textContent);
+    const bookId = Number(li.querySelector('.book-id').textContent);
+    const index = myLibrary.findIndex((book) => book.id === bookId);
     if (icon.classList.contains('book-delete')) {
-      deleteBook(i);
+      bookList.removeChild(li);
+      myLibrary.splice(index, 1);
     } else if (icon.classList.contains('book-read')) {
-      if (myLibrary[i].read) {
-        console.log(`mark book ${i} as unread`);
-      } else {
-        console.log(`mark book ${i} as read`);
-      }
+      const bookUnread = li.querySelector('.book-unread');
+      bookUnread.style.display = 'inline';
+      icon.style.display = 'none';
+      myLibrary[index].read = false;
+    } else if (icon.classList.contains('book-unread')) {
+      const bookRead = li.querySelector('.book-read');
+      bookRead.style.display = 'inline';
+      icon.style.display = 'none';
+      myLibrary[index].read = true;
     }
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   }
 });
 
-render();
+renderList();

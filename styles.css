@@ -196,3 +196,9 @@ h1, h2 {
 .book-delete {
   margin-left: 1em;
 }
+
+.attrib {
+  color: var(--col-txt);
+  font-size: .5em;
+  text-decoration: none;
+}
