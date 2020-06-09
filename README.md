@@ -18,7 +18,7 @@ The project is intended to be a demonstration of the use of **JavaScript Arrays*
 
 # Getting Started
 
-
+Clone the repository and open `index.html` in a web browser.
 
 ## Prerequisites
 
@@ -27,11 +27,9 @@ This project was tested with
 - Nodejs version 13.14.0
 - npm version 6.14.5
 
-## Setup
-
-## Install
-
 ## Usage
+
+
 
 ## Deployment
 
