@@ -17,7 +17,7 @@ function Book(id, author, title, pages, read = false) {
 
 // eslint-disable-next-line prefer-const
 let iconHTML = {
-  read: '<i class="fi-cnsuxl-check"></i>',
+  read: '<i class="fi-cnsuxl-check" style="color: green;"></i>',
   unread: '<i class="fi-cnluxl-check"></i>',
   delete: '<i class="fi-xnluxl-trash-bin"></i>',
 };
@@ -74,6 +74,7 @@ function renderList() {
 
 // eslint-disable-next-line no-unused-vars
 addForm.addEventListener('submit', (event) => {
+  event.preventDefault();
   const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
   const len = myLibrary.length;
   const id = (len === 0) ? 0 : myLibrary[len - 1].id + 1;
