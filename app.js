@@ -74,7 +74,6 @@ function renderList() {
 
 // eslint-disable-next-line no-unused-vars
 addForm.addEventListener('submit', (event) => {
-  event.preventDefault();
   const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
   const len = myLibrary.length;
   const id = (len === 0) ? 0 : myLibrary[len - 1].id + 1;

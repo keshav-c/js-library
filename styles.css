@@ -150,6 +150,47 @@ h1, h2 {
   cursor: pointer;
 }
 
+#add-form {
+  margin: 0 auto;
+  padding: 1em;
+  width: 500px;
+}
+
+#add-form div + div {
+  margin-top: 1em;
+}
+
+label[for="title-input"],
+label[for="author-input"],
+label[for="pages-input"] {
+  display: inline-block;
+  width: 90px;
+  text-align: right;
+}
+
+#title-input,
+#author-input,
+#pages-input {
+  font: 1em sans-serif;
+  width: 300px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+}
+
+#title-input:focus,
+#author-input:focus,
+#pages-input:focus {
+  border-color: black;
+}
+
+#add-form .radio-group {
+  margin-left: 90px;
+}
+
+#add-form input[type="submit"] {
+  margin-left: 96px;
+}
+
 #list ul {
   list-style-type: none;
   padding: 0;
