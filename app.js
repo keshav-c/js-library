@@ -67,13 +67,12 @@ const renderBook = (book) => {
   bookList.appendChild(li);
 };
 
-function renderList() {
+function render() {
   const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
   myLibrary.forEach((book) => { renderBook(book); });
 }
 
-// eslint-disable-next-line no-unused-vars
-addForm.addEventListener('submit', (event) => {
+function addBookToLibrary() {
   const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
   const len = myLibrary.length;
   const id = (len === 0) ? 0 : myLibrary[len - 1].id + 1;
@@ -85,7 +84,10 @@ addForm.addEventListener('submit', (event) => {
   myLibrary.push(book);
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   renderBook(book);
-});
+}
+
+// eslint-disable-next-line no-unused-vars
+addForm.addEventListener('submit', (event) => { addBookToLibrary(); });
 
 bookList.addEventListener('click', event => {
   const myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
@@ -112,4 +114,4 @@ bookList.addEventListener('click', event => {
   }
 });
 
-renderList();
+render();
